@@ -4,24 +4,42 @@
 
 int main() {
 
-    Student student1("Radu Dancea", 1);
+    Student student("Radu Dancea", 1);
 
-    student1.addGrade(
+    student.addGrade(
         new Grade(1, 10, "ALGEBRA")
     );
-    student1.addGrade(
+    student.addGrade(
         new Grade(2, 5, "CD")
     );
-    student1.addGrade(
+    student.addGrade(
         new Grade(3, 7, "CHS")
     );
 
-    student1.display();
+    student.display();
 
-    student1.removeGradeById(2);
+    std::cout << "--------------------COPIED--------------------" << std::endl;
+    Student studentCopy = student; 
+    studentCopy.setName("Copied Dancea Radu"); 
+    
+    std::cout << std::endl;
+    student.removeGradeById(2);
     std::cout << std::endl;
 
-    student1.display();
+    student.display();
+    //if the copy constructor of Student had not been overriden, this would've resulted in a seg fault
+    //because the grades of studentCopy would've referenced the same memory as the grades of student
+    studentCopy.display();
+
+    std::cout << "--------------------MOVED--------------------" << std::endl;
+    Student studentMoved = std::move(student);
+    studentMoved.setName("Moved Dancea Radu");
+
+    student.display();
+    studentMoved.display();
+    studentCopy.display();
+
     
+    std::cout << "--------------------END OF PROGRAM DESTRUCTOR CALLS--------------------" << std::endl;
     return 0;
 }

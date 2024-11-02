@@ -17,6 +17,7 @@ class Grade {
         ~Grade();
         int getId() const;
         int getGrade() const;
+        void setGrade(int newGrade);
         std::string getCourseName() const;
 };
 

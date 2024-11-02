@@ -7,14 +7,14 @@ Grade::Grade(int id, int grade, const std::string& courseName): courseName(cours
 Grade::Grade(const Grade& other) {
     courseName = other.courseName;
     id = other.id;
-    grade= other.grade;
+    grade = other.grade;
     std::cout << "Copy constructor called for grade with id: " << id << std::endl;
 }
 
 Grade::Grade(Grade&& other) noexcept {
     courseName = std::move(other.courseName);
-    id = std::move(other.id);
-    grade= std::move(other.grade);
+    id = other.id;
+    grade= other.grade;
 
     other.grade = 0;
     other.id = 0;
@@ -37,4 +37,8 @@ int Grade::getGrade() const {
 
 int Grade::getId() const {
     return id;
+}
+
+void Grade::setGrade(int newGrade) {
+    grade = newGrade;
 }

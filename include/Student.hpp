@@ -17,10 +17,10 @@ class Student {
         void removeGradeById(int id);
         void listGrades() const;
         void display() const;
+        void setName(const std::string& newName);
         Student(const Student& other);
         Student(Student&& other) noexcept;
         ~Student();
 };
-
 
 #endif
