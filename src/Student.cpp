@@ -9,14 +9,14 @@ Student::Student(const std::string& name, int id): name(name), studentId(id) {}
 Student::Student(const Student& other) {
     name = other.name;
     studentId = other.studentId;
-    courses = other.courses;
+    grades = other.grades;
     std::cout << "Copy constructor called for student: " << name << std::endl;
 }
 
 Student::Student(Student&& other) noexcept {
     name = std::move(other.name);
     studentId = std::move(other.studentId);
-    courses = std::move(other.courses);
+    grades = std::move(other.grades);
 
     other.name = "";
     other.studentId = 0;
@@ -27,28 +27,34 @@ Student::~Student() {
     std::cout << "Destructor called for student: " << name << std::endl;
 }
 
-void Student::enrollInCourse(Course* course) {
-    if(course != nullptr) {
-        courses.push_back(course);
+void Student::addGrade(Grade* grade) {
+    if(grade != nullptr) {
+        grades.push_back(grade);
     }
 }
 
-void Student::listCourses() const {
-    for(const auto& course: courses) {
-        std::cout << "Course: " << course->getCourseName() << course->getCourseCode() << ")" <<std::endl;
+void Student::listGrades() const {
+    for(const auto& grade: grades) {
+        std::cout << "Grade: " << grade->getGrade() << " (" << grade->getCourseName() << ")" <<std::endl;
     }
 }
 
-void Student::removeCourseByCode(const std::string& code) {
-    auto it = std::find_if(courses.begin(), courses.end(), [&](Course* course) {
-        return course->getCourseCode() == code;
+void Student::removeGradeById(int id) {
+    auto it = std::find_if(grades.begin(), grades.end(), [&](Grade* grade) {
+        return grade->getId() == id;
     });
 
-    if (it != courses.end()) {
+    if (it != grades.end()) {
         delete *it;
-        courses.erase(it);
-        std::cout << "Course with code = " << code << " was deleted from student with name = "<< name << std::endl;
+        grades.erase(it);
+        std::cout << "Grade with id = " << id << " was deleted from student with name = "<< name << std::endl;
     } else {
-        std::cout << "Course with code = " << code << " was not found." << std::endl;
+        std::cout << "Grade with id = " << id << " was not found." << std::endl;
     }
+}
+
+void Student::display() const {
+    std::cout << "Student " << name << "has the following grades" << std::endl;
+    listGrades();
+    std::cout << std::endl;
 }

@@ -3,19 +3,20 @@
 
 #include <string>
 #include <vector>
-#include "Course.hpp"
+#include "Grade.hpp"
 
 class Student {
     private:
         std::string name;
         int studentId;
-        std::vector<Course*> courses;
+        std::vector<Grade*> grades;
 
     public:
         Student(const std::string& name, int id);
-        void enrollInCourse(Course* course);
-        void removeCourseByCode(const std::string& code);
-        void listCourses() const;
+        void addGrade(Grade* grade);
+        void removeGradeById(int id);
+        void listGrades() const;
+        void display() const;
         Student(const Student& other);
         Student(Student&& other) noexcept;
         ~Student();
